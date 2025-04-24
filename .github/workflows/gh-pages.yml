@@ -21,20 +21,23 @@ jobs:
         with:
           node-version: '21'
 
-      - name: Get yarn cache
-        id: yarn-cache
-        run: echo "::set-output name=dir::$(yarn cache dir)"
+      - name: Get pnpm cache
+        id: pnpm-cache
+        run: echo "::set-output name=dir::$(pnpm store path)"
 
       - name: Cache dependencies
         uses: actions/cache@v2
         with:
-          path: ${{ steps.yarn-cache.outputs.dir }}
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          path: ${{ steps.pnpm-cache.outputs.dir }}
+          key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
-            ${{ runner.os }}-yarn-
+            ${{ runner.os }}-pnpm-
+        # Add download info here
+        env:
+          ACTIONS_CACHE_URL: https://github.com/actions/cache
 
-      - run: yarn install --frozen-lockfile
-      - run: yarn build
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm build
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
