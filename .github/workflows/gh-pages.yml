@@ -19,22 +19,7 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v3
         with:
-          node-version: '21'
-
-      - name: Get pnpm cache
-        id: pnpm-cache
-        run: echo "::set-output name=dir::$(pnpm store path)"
-
-      - name: Cache dependencies
-        uses: actions/cache@v2
-        with:
-          path: ${{ steps.pnpm-cache.outputs.dir }}
-          key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
-          restore-keys: |
-            ${{ runner.os }}-pnpm-
-        # Add download info here
-        env:
-          ACTIONS_CACHE_URL: https://github.com/actions/cache
+          node-version: '22'
 
       - run: pnpm install --frozen-lockfile
       - run: pnpm build
