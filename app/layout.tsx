@@ -89,12 +89,12 @@ export default function RootLayout({
     <html lang="zh-CN">
       <body className={`${sans.variable} ${display.variable} antialiased`}>
         <div className="min-h-screen">
-          <header className="sticky top-0 z-50 border-b border-white/60 bg-white/70 backdrop-blur dark:border-slate-800/80 dark:bg-slate-950/70">
+          <header className="sticky top-0 z-50 border-b border-slate-200 bg-white/95 dark:border-slate-800 dark:bg-slate-950/95">
             <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
               <div className="flex items-center gap-3">
                 <Image src="/logo.svg" alt="RustX Labs Logo" width={36} height={36} />
                 <div className="hidden sm:block">
-                  <p className="text-xs uppercase tracking-[0.35em] text-slate-500 dark:text-slate-400">
+                  <p className="text-xs uppercase tracking-[0.28em] text-slate-500 dark:text-slate-400">
                     RustX Labs
                   </p>
                   <p className="text-sm font-semibold text-slate-900 dark:text-slate-100">
@@ -102,7 +102,7 @@ export default function RootLayout({
                   </p>
                 </div>
               </div>
-              <nav className="hidden items-center gap-6 text-xs font-semibold uppercase tracking-[0.2em] text-slate-600 dark:text-slate-300 md:flex">
+              <nav className="hidden items-center gap-6 text-sm font-medium tracking-[0.08em] text-slate-600 dark:text-slate-300 md:flex">
                 {navItems.map((item) => (
                   <a
                     key={item.href}
@@ -115,7 +115,7 @@ export default function RootLayout({
               </nav>
               <div className="flex items-center gap-3">
                 <a
-                  className="hidden rounded-full border border-slate-300/70 bg-white/80 px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-slate-700 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md dark:border-slate-700/80 dark:bg-slate-900/70 dark:text-slate-100 sm:inline-flex"
+                  className="hidden rounded-md border border-slate-300 bg-white px-4 py-2 text-xs font-semibold tracking-[0.12em] text-slate-700 shadow-sm transition hover:border-slate-400 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-100 sm:inline-flex"
                   href="https://github.com/rustx-labs"
                 >
                   GitHub

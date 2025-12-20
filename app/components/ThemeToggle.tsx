@@ -43,7 +43,7 @@ export default function ThemeToggle() {
       aria-label="切换深浅色"
       aria-pressed={theme === 'dark'}
       onClick={handleToggle}
-      className="inline-flex items-center gap-2 rounded-full border border-slate-300/70 bg-white/80 px-3 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-slate-700 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md dark:border-slate-700/80 dark:bg-slate-900/70 dark:text-slate-100"
+      className="inline-flex items-center gap-2 rounded-md border border-slate-300 bg-white px-3 py-2 text-xs font-semibold tracking-[0.12em] text-slate-700 shadow-sm transition hover:border-slate-400 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-100"
     >
       <SunIcon className="h-4 w-4" />
       <span className="hidden sm:inline">主题</span>
