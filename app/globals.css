@@ -26,7 +26,7 @@
   html {
     scroll-behavior: smooth;
     scroll-padding-top: 96px;
-    scroll-snap-type: y proximity;
+    scroll-snap-type: y mandatory;
   }
 
   html[data-theme='dark'] {
@@ -64,10 +64,11 @@
 
 .scroll-card {
   scroll-snap-align: start;
+  scroll-snap-stop: always;
   scroll-margin-top: 96px;
   opacity: 0.28;
-  transform: translate3d(0, 32px, 0) scale(0.98);
-  transition: transform 700ms cubic-bezier(0.22, 1, 0.36, 1), opacity 700ms ease;
+  transform: translate3d(0, 48px, 0) scale(0.97);
+  transition: transform 800ms cubic-bezier(0.22, 1, 0.36, 1), opacity 800ms ease;
   will-change: transform, opacity;
 }
 
@@ -76,17 +77,38 @@
   transform: translate3d(0, 0, 0) scale(1);
 }
 
+.scroll-card::after {
+  content: '';
+  position: absolute;
+  left: 28px;
+  right: 28px;
+  top: 22px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(var(--color-accent), 0.7), transparent);
+  opacity: 0;
+  transform: scaleX(0.5);
+  transition: transform 900ms cubic-bezier(0.22, 1, 0.36, 1), opacity 900ms ease;
+  pointer-events: none;
+}
+
+.scroll-card[data-active='true']::after {
+  opacity: 1;
+  transform: scaleX(1);
+}
+
 .scroll-card [data-animate] {
   opacity: 0;
-  transform: translate3d(0, 16px, 0);
-  transition: transform 600ms cubic-bezier(0.22, 1, 0.36, 1), opacity 600ms ease;
+  transform: translate3d(0, 24px, 0) scale(0.98);
+  filter: blur(6px);
+  transition: transform 650ms cubic-bezier(0.22, 1, 0.36, 1), opacity 650ms ease, filter 650ms ease;
   transition-delay: var(--delay, 0ms);
   will-change: transform, opacity;
 }
 
 .scroll-card[data-active='true'] [data-animate] {
   opacity: 1;
-  transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0) scale(1);
+  filter: blur(0);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -100,9 +122,16 @@
     transition: none;
   }
 
+  .scroll-card::after {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
   .scroll-card [data-animate] {
     opacity: 1;
     transform: none;
+    filter: none;
     transition: none;
   }
 }

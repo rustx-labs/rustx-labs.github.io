@@ -31,7 +31,7 @@ export default function ScrollCard({ id, className, children }: ScrollCardProps)
     }
   }, [])
 
-  const classes = ['scroll-card', className].filter(Boolean).join(' ')
+  const classes = ['scroll-card', 'relative', 'overflow-hidden', className].filter(Boolean).join(' ')
 
   return (
     <section id={id} ref={ref} data-active={active} className={classes}>
