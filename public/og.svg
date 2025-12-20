@@ -1,0 +1,28 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="160" y1="70" x2="1040" y2="560" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFF7ED" />
+      <stop offset="1" stop-color="#F4EDE3" />
+    </linearGradient>
+    <linearGradient id="tile" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#F6C08E" />
+      <stop offset="1" stop-color="#E05E3C" />
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" rx="48" fill="url(#bg)" />
+  <circle cx="1020" cy="80" r="140" fill="#FBD38D" opacity="0.45" />
+  <circle cx="140" cy="520" r="180" fill="#4CC9C0" opacity="0.25" />
+  <rect x="100" y="140" width="160" height="160" rx="48" fill="url(#tile)" />
+  <path d="M150 190L210 250" stroke="#0F172A" stroke-width="20" stroke-linecap="round" />
+  <path d="M210 190L150 250" stroke="#0F172A" stroke-width="20" stroke-linecap="round" />
+  <circle cx="156" cy="196" r="10" fill="#0F172A" />
+  <text x="320" y="235" font-family="'Space Grotesk', Arial, sans-serif" font-size="64" font-weight="600" fill="#0F172A">
+    RustX Labs
+  </text>
+  <text x="320" y="305" font-family="'Space Grotesk', Arial, sans-serif" font-size="28" fill="#475569">
+    Rust 工程化工具、内容与社区共建实验室
+  </text>
+  <text x="320" y="360" font-family="'Space Grotesk', Arial, sans-serif" font-size="22" fill="#64748B">
+    tools · education · localization
+  </text>
+</svg>

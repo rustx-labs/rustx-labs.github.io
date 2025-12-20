@@ -3,25 +3,91 @@
 @tailwind utilities;
 
 :root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+  --color-ink: 15 23 42;
+  --color-muted: 71 85 105;
+  --color-sand: 248 244 238;
+  --color-cream: 255 252 246;
+  --color-accent: 226 94 58;
+  --color-teal: 15 118 110;
+  --shadow-soft: 0 30px 60px -40px rgba(15, 23, 42, 0.55);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
+:root[data-theme='dark'] {
+  --color-ink: 226 232 240;
+  --color-muted: 148 163 184;
+  --color-sand: 8 12 20;
+  --color-cream: 15 23 42;
+  --color-accent: 248 113 80;
+  --color-teal: 45 212 191;
+  --shadow-soft: 0 40px 80px -60px rgba(0, 0, 0, 0.75);
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  html[data-theme='dark'] {
+    color-scheme: dark;
+  }
+
+  body {
+    min-height: 100%;
+    color: rgb(var(--color-ink));
+    background-color: rgb(var(--color-sand));
+    background-image:
+      radial-gradient(1200px 600px at 90% -10%, rgba(var(--color-accent), 0.18), transparent 60%),
+      radial-gradient(900px 520px at -15% 25%, rgba(var(--color-teal), 0.2), transparent 60%),
+      linear-gradient(180deg, rgba(var(--color-cream), 0.92), rgba(var(--color-sand), 0.95));
+    font-family: var(--font-sans), 'Space Grotesk', 'Helvetica Neue', Arial, sans-serif;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display), 'Fraunces', 'Times New Roman', serif;
+    letter-spacing: -0.02em;
+  }
+
+  p {
+    color: rgb(var(--color-muted));
+  }
+
+  ::selection {
+    background: rgba(var(--color-accent), 0.2);
   }
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+@keyframes float {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(0, -12px, 0);
+  }
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes rise {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 24px, 0);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes pulse-soft {
+  0%,
+  100% {
+    opacity: 0.55;
+  }
+  50% {
+    opacity: 0.85;
+  }
 }
