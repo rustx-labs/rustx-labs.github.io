@@ -1,0 +1,14 @@
+{
+  "softwares": {
+    "novadb": {
+      "name": "NovaDB",
+      "download_url": "https://kktkagw6fpnvmy1s.public.blob.vercel-storage.com/updates/stable.json",
+      "description": "Fast, modern database client for developers."
+    },
+    "sky-monitor": {
+      "name": "Sky Monitor",
+      "download_url": "https://i3qqupmkg6cwhlzl.public.blob.vercel-storage.com/updates/stable.json",
+      "description": "A lightweight macOS menu-bar system monitor."
+    }
+  }
+}
