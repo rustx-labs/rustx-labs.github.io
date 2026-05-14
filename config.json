@@ -10,6 +10,11 @@
       "name": "Sky Monitor",
       "download_url": "https://i3qqupmkg6cwhlzl.public.blob.vercel-storage.com/updates/stable.json",
       "description": "A lightweight macOS menu-bar system monitor."
+    },
+    "eye-sentry": {
+      "name": "Eye Sentry",
+      "download_url": "https://gsj25hzoazqftrtk.public.blob.vercel-storage.com/updates/stable.json",
+      "description": "Cross-platform eye-care & focus assistant with screen temperature control and break reminders."
     }
   }
 }

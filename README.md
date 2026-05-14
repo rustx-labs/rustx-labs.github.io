@@ -29,6 +29,7 @@ The update proxy currently serves manifests for:
 |----------|-------------|
 | **NovaDB** | Fast, modern database client for developers |
 | **Sky Monitor** | Lightweight macOS menu-bar system monitor |
+| **Eye Sentry** | Cross-platform eye-care & focus assistant with screen temperature control and break reminders |
 
 Each software has an update endpoint at `/api/updates/<slug>` that fetches the upstream manifest, rewrites download URLs to point through this site, and returns the result.
 
