@@ -1,4 +1,5 @@
 {
+  "site_url": "https://rustx-labs.github.io",
   "softwares": {
     "novadb": {
       "name": "NovaDB",

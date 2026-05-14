@@ -10,7 +10,27 @@ interface Software {
   description: string;
 }
 
+interface UpdateFile {
+  archive_name: string;
+  target: string;
+  archive_format: string;
+  blob_path: string;
+  url: string;
+  sha256: string;
+}
+
+interface UpdateInfo {
+  schema_version: number;
+  product: string;
+  channel: string;
+  version: string;
+  release_tag: string;
+  published_at: string;
+  files: UpdateFile[];
+}
+
 interface Config {
+  site_url: string;
   softwares: {
     [slug: string]: Software;
   };
@@ -47,15 +67,21 @@ export async function GET(
       );
     }
 
-    // 从远程JSON文件获取更新信息
+    // 从远程JSON文件获取更新信息，并将下载地址替换为本站地址
     try {
       const response = await fetch(software.download_url);
       if (!response.ok) {
         throw new Error(`Failed to fetch update info: ${response.status}`);
       }
-      const updateInfo = await response.json();
+      const updateInfo: UpdateInfo = await response.json();
 
-      // 直接返回原始配置格式
+      // 将 files[].url 替换为本站地址
+      const siteUrl = config.site_url.replace(/\/$/, '');
+      updateInfo.files = updateInfo.files.map(file => ({
+        ...file,
+        url: `${siteUrl}/releases/${slug}/${file.archive_name}`,
+      }));
+
       return NextResponse.json(updateInfo);
     } catch (fetchError) {
       console.error('Error fetching update info:', fetchError);

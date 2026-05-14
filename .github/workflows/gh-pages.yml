@@ -20,6 +20,10 @@ jobs:
         uses: oven-sh/setup-bun@v2
 
       - run: bun install --frozen-lockfile
+
+      - name: Download installer assets
+        run: bash scripts/download-assets.sh
+
       - run: bun run build
 
       - name: Deploy
