@@ -1,36 +1,140 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# RustX Labs
+
+<p>
+  <a href="https://github.com/rustx-labs/rustx-labs.github.io/actions/workflows/gh-pages.yml"><img src="https://github.com/rustx-labs/rustx-labs.github.io/actions/workflows/gh-pages.yml/badge.svg" alt="GitHub Pages"></a>
+  <img src="https://img.shields.io/badge/Next.js-16-black?logo=next.js" alt="Next.js">
+  <img src="https://img.shields.io/badge/React-19-61dafb?logo=react" alt="React">
+  <img src="https://img.shields.io/badge/TypeScript-6-3178c6?logo=typescript" alt="TypeScript">
+  <img src="https://img.shields.io/badge/Tailwind_CSS-4-06b6d4?logo=tailwindcss" alt="Tailwind CSS">
+  <a href="https://rustx-labs.github.io"><img src="https://img.shields.io/badge/site-live-brightgreen" alt="Site Live"></a>
+  <a href="./README.zh.md"><img src="https://img.shields.io/badge/lang-中文-blue" alt="中文"></a>
+</p>
+
+> An engineering team focused on Rust tooling, delivery pipelines, and developer experience.
+
+This repository contains the source code for [rustx-labs.github.io](https://rustx-labs.github.io), the official website and software update proxy for RustX Labs.
+
+## Overview
+
+RustX Labs is a team dedicated to building production-grade Rust engineering infrastructure. The website serves two purposes:
+
+1. **Team Homepage** — Showcase our focus areas, engineering programs, and community collaboration model.
+2. **Update Proxy** — Provide a stable, GitHub Pages-hosted endpoint that proxies software update manifests and redirects download URLs through our domain.
+
+### Softwares
+
+The update proxy currently serves manifests for:
+
+| Software | Description |
+|----------|-------------|
+| **NovaDB** | Fast, modern database client for developers |
+| **Sky Monitor** | Lightweight macOS menu-bar system monitor |
+
+Each software has an update endpoint at `/api/updates/<slug>` that fetches the upstream manifest, rewrites download URLs to point through this site, and returns the result.
+
+## Tech Stack
+
+- **Framework:** [Next.js 16](https://nextjs.org/) with App Router and static export
+- **Language:** [TypeScript 6](https://www.typescriptlang.org/)
+- **UI:** [React 19](https://react.dev/) + [Tailwind CSS 4](https://tailwindcss.com/)
+- **Package Manager:** [Bun](https://bun.sh/)
+- **Deployment:** GitHub Pages (static export)
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
+
+- [Bun](https://bun.sh/) (v1.x or later)
+
+### Installation
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
+bun install
+```
+
+### Development
+
+```bash
 bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) to view the site. The page auto-updates as you edit files.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Build
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+```bash
+bun run build
+```
 
-## Learn More
+This produces a static export in the `out/` directory, ready for deployment to GitHub Pages or any static hosting service.
 
-To learn more about Next.js, take a look at the following resources:
+### Lint
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+bun run lint
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+## Project Structure
 
-## Deploy on Vercel
+```
+.
+├── app/
+│   ├── api/updates/[slug]/   # Update proxy API route
+│   ├── components/            # Shared React components
+│   │   ├── ScrollCard.tsx     # Animated scroll-triggered card
+│   │   └── ThemeToggle.tsx    # Dark/light theme switcher
+│   ├── globals.css            # Global styles
+│   ├── layout.tsx             # Root layout
+│   └── page.tsx               # Homepage
+├── config.json                # Software registry & site config
+├── public/
+│   ├── logo.svg               # RustX Labs logo
+│   └── og.svg                 # Open Graph image
+├── scripts/
+│   └── download-assets.sh     # Asset download helper
+├── next.config.js             # Next.js config (static export)
+└── package.json
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Configuration
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Software entries are defined in `config.json`:
+
+```json
+{
+  "site_url": "https://rustx-labs.github.io",
+  "softwares": {
+    "novadb": {
+      "name": "NovaDB",
+      "download_url": "https://.../stable.json",
+      "description": "Fast, modern database client for developers."
+    }
+  }
+}
+```
+
+To add a new software, add an entry to the `softwares` object. The API route at `/api/updates/<slug>` is automatically generated from this config.
+
+## Contributing
+
+We welcome contributions. The workflow:
+
+1. **Propose** — Open an issue or discussion to align on scope and direction.
+2. **Implement** — Fork, branch, and submit a pull request.
+3. **Ship** — After review and approval, changes are merged and deployed.
+
+### Collaboration Guidelines
+
+- Propose first, then design-review to clarify scope
+- Prefer async collaboration with written documentation
+- Keep delivery traceable with post-ship retrospectives
+
+## License
+
+See [LICENSE](./LICENSE) for details.
+
+---
+
+<p align="center">
+  <strong>RustX Labs</strong> — Engineering. Delivery. Collaboration.
+</p>
