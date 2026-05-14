@@ -49,7 +49,7 @@ for slug in $(jq -r '.softwares | keys[]' "$CONFIG_FILE"); do
   # Download additional assets (dmg, etc.)
   for os_key in $(echo "$stable_json" | jq -r '.downloads // {} | keys[]'); do
     for arch_key in $(echo "$stable_json" | jq -r ".downloads[\"$os_key\"] | keys[]"); do
-      url=$(echo "$stable_json" | jq -r ".downloads[\"$os_key\"][\"$arch_key\"]")
+      url=$(echo "$stable_json" | jq -r ".downloads[\"$os_key\"][\"$arch_key\"].url")
       file_name="${url##*/}"
       target_file="$dest_dir/$file_name"
 

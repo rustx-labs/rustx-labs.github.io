@@ -15,12 +15,17 @@ interface PlatformInfo {
   url: string;
 }
 
+interface DownloadInfo {
+  sha256: string;
+  url: string;
+}
+
 interface UpdateInfo {
   version: string;
   notes: string;
   pub_date: string;
   platforms: Record<string, PlatformInfo>;
-  downloads: Record<string, Record<string, string>>;
+  downloads: Record<string, Record<string, DownloadInfo>>;
 }
 
 interface Config {
@@ -78,9 +83,9 @@ export async function GET(
       }
 
       for (const osArchs of Object.values(updateInfo.downloads)) {
-        for (const arch of Object.keys(osArchs)) {
-          const fileName = osArchs[arch].split('/').pop()!;
-          osArchs[arch] = `${siteUrl}/releases/${slug}/${fileName}`;
+        for (const info of Object.values(osArchs)) {
+          const fileName = info.url.split('/').pop()!;
+          info.url = `${siteUrl}/releases/${slug}/${fileName}`;
         }
       }
 
