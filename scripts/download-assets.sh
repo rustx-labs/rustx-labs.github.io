@@ -32,18 +32,34 @@ for slug in $(jq -r '.softwares | keys[]' "$CONFIG_FILE"); do
 
   mkdir -p "$dest_dir"
 
-  # Download each file
-  for row in $(echo "$stable_json" | jq -r '.files[] | @base64'); do
-    archive_name=$(echo "$row" | base64 -d | jq -r '.archive_name')
-    url=$(echo "$row" | base64 -d | jq -r '.url')
-    target_file="$dest_dir/$archive_name"
+  # Download platform archives (tar.gz)
+  for platform_key in $(echo "$stable_json" | jq -r '.platforms | keys[]'); do
+    url=$(echo "$stable_json" | jq -r ".platforms[\"$platform_key\"].url")
+    file_name="${url##*/}"
+    target_file="$dest_dir/$file_name"
 
     if [ -f "$target_file" ]; then
-      echo "  [skip] $archive_name (already exists)"
+      echo "  [skip] $file_name (already exists)"
     else
-      echo "  [download] $archive_name"
+      echo "  [download] $file_name"
       curl -fSL "$url" -o "$target_file"
     fi
+  done
+
+  # Download additional assets (dmg, etc.)
+  for os_key in $(echo "$stable_json" | jq -r '.downloads // {} | keys[]'); do
+    for arch_key in $(echo "$stable_json" | jq -r ".downloads[\"$os_key\"] | keys[]"); do
+      url=$(echo "$stable_json" | jq -r ".downloads[\"$os_key\"][\"$arch_key\"]")
+      file_name="${url##*/}"
+      target_file="$dest_dir/$file_name"
+
+      if [ -f "$target_file" ]; then
+        echo "  [skip] $file_name (already exists)"
+      else
+        echo "  [download] $file_name"
+        curl -fSL "$url" -o "$target_file"
+      fi
+    done
   done
 
   echo "  Done: $slug"

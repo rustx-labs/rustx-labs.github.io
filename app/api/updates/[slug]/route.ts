@@ -10,23 +10,17 @@ interface Software {
   description: string;
 }
 
-interface UpdateFile {
-  archive_name: string;
-  target: string;
-  archive_format: string;
-  blob_path: string;
+interface PlatformInfo {
+  signature: string;
   url: string;
-  sha256: string;
 }
 
 interface UpdateInfo {
-  schema_version: number;
-  product: string;
-  channel: string;
   version: string;
-  release_tag: string;
-  published_at: string;
-  files: UpdateFile[];
+  notes: string;
+  pub_date: string;
+  platforms: Record<string, PlatformInfo>;
+  downloads: Record<string, Record<string, string>>;
 }
 
 interface Config {
@@ -75,12 +69,20 @@ export async function GET(
       }
       const updateInfo: UpdateInfo = await response.json();
 
-      // 将 files[].url 替换为本站地址
+      // 将 platforms.*.url 和 downloads.*.* 替换为本站地址
       const siteUrl = config.site_url.replace(/\/$/, '');
-      updateInfo.files = updateInfo.files.map(file => ({
-        ...file,
-        url: `${siteUrl}/releases/${slug}/${file.archive_name}`,
-      }));
+
+      for (const platform of Object.values(updateInfo.platforms)) {
+        const fileName = platform.url.split('/').pop()!;
+        platform.url = `${siteUrl}/releases/${slug}/${fileName}`;
+      }
+
+      for (const osArchs of Object.values(updateInfo.downloads)) {
+        for (const arch of Object.keys(osArchs)) {
+          const fileName = osArchs[arch].split('/').pop()!;
+          osArchs[arch] = `${siteUrl}/releases/${slug}/${fileName}`;
+        }
+      }
 
       return NextResponse.json(updateInfo);
     } catch (fetchError) {
